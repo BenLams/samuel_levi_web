@@ -1,0 +1,26 @@
+const express = require('express');
+const nodemailer = require('nodemailer');
+const app = express();
+
+app.use(express.json());
+
+app.post('/api/submit-registration', (req, res) => {
+  const { studentName, parentEmail, ...data } = req.body;
+  // Configure transporter for email
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: { user: 'your-email@gmail.com', pass: 'your-app-password' },
+  });
+  const mailOptions = {
+    from: 'your-email@gmail.com',
+    to: 'registrations@bugemaaps.org', // Registrations office email
+    subject: `New Registration: ${studentName}`,
+    text: JSON.stringify(data, null, 2),
+  };
+  transporter.sendMail(mailOptions, (error) => {
+    if (error) return res.status(500).send('Error sending email');
+    res.status(200).send('Registration submitted');
+  });
+});
+
+app.listen(3000, () => console.log('Server running on port 3000'));

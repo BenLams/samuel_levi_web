@@ -13,7 +13,8 @@ export default function ChangePassword() {
 
   const handleChangePassword = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (currentPassword !== 'initialpassword') {
+    const storedPassword = localStorage.getItem('adminPassword') || 'initialpassword';
+    if (currentPassword !== storedPassword) {
       setError('Current password is incorrect');
       return;
     }
@@ -25,10 +26,12 @@ export default function ChangePassword() {
       setError('New password must be at least 6 characters');
       return;
     }
+    localStorage.setItem('adminPassword', newPassword);
     setSuccess('Password changed successfully');
     setError('');
     setTimeout(() => router.push('/admin/dashboard'), 2000);
   };
+
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">

@@ -7,7 +7,7 @@ import { Mail, Phone, MapPin } from 'lucide-react';
 
 export default function Contact() {
   const heroText = localStorage.getItem('contactText') ?? 'Get in Touch with Bugema Adventist Primary School';
-  const heroImage = localStorage.getItem('contactHero') ?? '/images/classroom.jpg';
+  const heroImage = localStorage.getItem('contactHero') ?? '/images/hero-bg.jpg';
   const galleryImages = JSON.parse(localStorage.getItem('galleryImages') ?? '[]');
   const parentsWords = localStorage.getItem('parentsWords') ?? '';
 

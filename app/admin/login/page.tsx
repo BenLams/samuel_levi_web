@@ -10,9 +10,11 @@ export default function AdminLogin() {
   const [error, setError] = useState('');
   const router = useRouter();
 
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+ const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (username === 'admin' && password === 'initialpassword') {
+    const storedPassword = localStorage.getItem('adminPassword') || 'initialpassword';
+    if (username === 'admin' && password === storedPassword) {
+      localStorage.setItem('adminLoggedIn', 'true'); // Simple session flag
       router.push('/admin/dashboard');
     } else {
       setError('Invalid credentials');
@@ -25,7 +27,7 @@ export default function AdminLogin() {
         <h1 className="text-2xl font-bold text-blue-700 mb-6 text-center">Admin Login</h1>
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <label htmlFor="username" className="block text-gray-700">Username</label>
+            <label htmlFor="username" className="block text-gray-700">Username</label>your
             <input
               id="username"
               type="text"

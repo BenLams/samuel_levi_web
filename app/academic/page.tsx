@@ -11,7 +11,7 @@ export default function Academic() {
       {/* Hero Section */}
       <section className="relative h-64 md:h-96 mb-12 overflow-hidden rounded-xl shadow-lg">
         <Image
-          src="/images/classroom.jpg" // Replace with an academic-themed image
+          src="/images/hero-bg.jpg"
           alt="Academic Programs at Bugema APS"
           fill
           className="object-cover brightness-75"

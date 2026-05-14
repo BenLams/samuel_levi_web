@@ -4,12 +4,33 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 export default function Contact() {
-  const heroText = localStorage.getItem('contactText') ?? 'Get in Touch with Bugema Adventist Primary School';
-  const heroImage = localStorage.getItem('contactHero') ?? '/images/hero-bg.jpg';
-  const galleryImages = JSON.parse(localStorage.getItem('galleryImages') ?? '[]');
-  const parentsWords = localStorage.getItem('parentsWords') ?? '';
+  const [heroText, setHeroText] = useState('Get in Touch with Bugema Adventist Primary School');
+  const [heroImage, setHeroImage] = useState('/images/hero-bg.jpg');
+  const [galleryImages, setGalleryImages] = useState<string[]>([]);
+  const [parentsWords, setParentsWords] = useState('');
+
+  // Load from localStorage only on client side
+  useEffect(() => {
+    if (globalThis.window !== undefined) {
+      setHeroText(localStorage.getItem('contactText') ?? 'Get in Touch with Bugema Adventist Primary School');
+      setHeroImage(localStorage.getItem('contactHero') ?? '/images/hero-bg.jpg');
+      
+      const savedGallery = localStorage.getItem('galleryImages');
+      if (savedGallery) {
+        try {
+          setGalleryImages(JSON.parse(savedGallery));
+        } catch (e) {
+          console.error('Failed to parse galleryImages from localStorage:', e);
+          setGalleryImages([]);
+        }
+      }
+
+      setParentsWords(localStorage.getItem('parentsWords') ?? '');
+    }
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800 font-sans">
@@ -163,7 +184,14 @@ export default function Contact() {
         <h2 className="text-2xl md:text-3xl font-semibold text-blue-700 mb-6 text-center">Gallery</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {galleryImages.map((img: string) => (
-            <Image key={img} src={img} alt={`Gallery ${img}`} width={300} height={200} className="rounded-lg object-cover" />
+            <Image 
+              key={img} 
+              src={img} 
+              alt={`Gallery image`} 
+              width={300} 
+              height={200} 
+              className="rounded-lg object-cover" 
+            />
           ))}
         </div>
       </motion.section>

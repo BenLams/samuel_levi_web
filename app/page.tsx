@@ -9,7 +9,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 const headerImages = [
-  { id: 1, src: '/images/classroom.jpg', alt: 'Classroom activities at Bugema APS' },
+  { id: 1, src: '/images/classroom.jpg', alt: 'Classroom activities at Samuel Levi APS' },
   { id: 2, src: '/images/school-building.jpg', alt: 'Bugema APS school building' },
   { id: 3, src: '/images/playground.jpg', alt: 'Playground fun at Bugema APS' },
   { id: 4, src: '/images/event1.jpg', alt: 'Event at Bugema APS' },
